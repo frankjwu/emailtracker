@@ -1,4 +1,12 @@
 Emailtracker::Application.routes.draw do
+  devise_for :users
+
+  devise_for :emails
+
+  resources :emails
+
+  root :to => "emails#index"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
