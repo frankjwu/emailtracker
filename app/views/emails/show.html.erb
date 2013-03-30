@@ -9,7 +9,8 @@
   <b>Url:</b>
   <%= @email.url %>
 </p>
-	<%= @email.copyimage %>
+
+	<%= image_tag("urls/#{@email.url}.png") %>
 
 
 <%= link_to 'Edit', edit_email_path(@email) %> |
