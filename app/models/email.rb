@@ -3,7 +3,8 @@ class Email < ActiveRecord::Base
   belongs_to :user
 
   require 'fileutils'
-  require 'RMagick'
+  require 'mechanize'
+  require 'logger'
 
   def gen_url
   	genurl = Time.now.to_f.to_s + rand(1000).to_s
@@ -12,43 +13,36 @@ class Email < ActiveRecord::Base
   	return genurl
   end
 
-  def createimage
-  	img = Magick::ImageList.new('app/assets/images/white.jpg')
+#  def copyimage
+#  	FileUtils.cp('app/assets/images/rails.png', 'app/assets/images/urls/' + self.url.to_s + '.png')
+#  end
 
-		txt = Magick::Draw.new
+# def getURL
+# 	return 'app/assets/images/urls/' + self.url.to_s + '.png'
+# end
 
-		txt.annotate(img, 0,0,0,0, "Mike Wu") {
-			self.gravity = Magick::SouthGravity
-			self.pointsize = 25
-			self.stroke = '#000000'
-			self.fill = '#ffffff'
-			self.font_weight = Magick::BoldWeight
-		}
+#  def checkRead
+#  	created = File.ctime(getURL)
+#  	accessed = File.atime(getURL)
+#  	if(accessed - created > 10)
+#  	  return true
+#  	else
+#  	  return false
+#    end
+#  end
 
-		img.write('text.jpg')
-  end
+#  def mailtolink
+#    image = getURL
+#    return 'http://localhost:3000/assets/urls/' + self.url.to_s + '.png'
+#  end
 
-  def copyimage
-  	FileUtils.cp('app/assets/images/rails.png', 'app/assets/images/urls/' + self.url.to_s + '.png')
-  end
+  def getimageurl
+    agent = Mechanize.new
+    agent.user_agent_alias = 'Mac Safari'
 
-  def getURL
-  	return 'app/assets/images/urls/' + self.url.to_s + '.png'
-  end
-
-  def checkRead
-  	created = File.ctime(getURL)
-  	accessed = File.atime(getURL)
-  	if(accessed - created > 10)
-  	  return true
-  	else
-  	  return false
-    end
-  end
-
-  def mailtolink
-    image = getURL
-    return 'http://localhost:3000/assets/urls/' + self.url.to_s + '.png'
+    page = agent.get "http://google.com" + self.url
+    text = page.title
+    return text;
   end
 
 end

@@ -13,10 +13,14 @@
 	<%= @email.checkRead %>
 		<%= link_to "Add to email", @email.mailtolink %><br /><br /><br />
 
+----<br />
+<p id="some-txt">
 	<%= @email.body %><br />
 	<%= image_tag("urls/#{@email.url}.png") %><br /><br />
+</p>
+----<br />
 
-
+<%= @email.getimageurl %>
 
 <%= link_to 'Edit', edit_email_path(@email) %> |
 <%= link_to 'Back', emails_path %>
