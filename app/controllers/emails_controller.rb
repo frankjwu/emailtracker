@@ -1,5 +1,5 @@
 class EmailsController < ApplicationController
- before_filter :authenticate_user!
+  before_filter :authenticate_user!
   # GET /emails
   # GET /emails.json
   def index
@@ -26,10 +26,18 @@ class EmailsController < ApplicationController
   # GET /emails/new.json
   def new
     @email = Email.new
+    @email.read = false
+    @email.url = @email.gen_url
+    @email.copyimage
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @email }
+      if @email.save
+        format.html { redirect_to @email, notice: 'Email was successfully created.' }
+        format.json { render json: @email, status: :created, location: @email }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @email.errors, status: :unprocessable_entity }
+      end
     end
   end
 
