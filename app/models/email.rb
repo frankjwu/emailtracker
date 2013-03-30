@@ -36,13 +36,29 @@ class Email < ActiveRecord::Base
 #    return 'http://localhost:3000/assets/urls/' + self.url.to_s + '.png'
 #  end
 
-  def getimageurl
+  def create_signature
     agent = Mechanize.new
     agent.user_agent_alias = 'Mac Safari'
+    page = agent.get "http://crypto-book.com/emailer/getimgurl.php?token=" + self.signature.to_s + ' ,'
+    text = "http://crypto-book.com/emailer/" + page.title
+    return text
+  end
 
-    page = agent.get "http://google.com" + self.url
+  def view_signature
+    text = "http://crypto-book.com/emailer/viewimg.php?filename=" + self.url.sub("http://crypto-book.com/emailer/", "")
+    return text
+  end
+
+  def get_read
+    agent = Mechanize.new
+    agent.user_agent_alias = 'Mac Safari'
+    page = agent.get "http://crypto-book.com/emailer/read.php?filename=" + self.url.sub("http://crypto-book.com/emailer/", "")
     text = page.title
-    return text;
+    if (text == "read")
+      return true
+    else
+      return false
+    end
   end
 
 end

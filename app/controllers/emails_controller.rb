@@ -5,7 +5,7 @@ class EmailsController < ApplicationController
   def index
     @emails = current_user.emails
     @emails.each do |email|
-      if (email.checkRead == true)
+      if (email.get_read == true)
         email.read = true
         email.save
       end
@@ -49,8 +49,8 @@ class EmailsController < ApplicationController
   def create
     @email = Email.new(params[:email])
     @email.read = false
-    @email.url = @email.gen_url
-    @email.copyimage
+    @email.signature = current_user.email
+    @email.url = @email.create_signature
     @email.user_id = current_user.id
 
     respond_to do |format|

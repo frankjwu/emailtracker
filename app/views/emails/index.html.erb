@@ -1,9 +1,7 @@
-<h1>Listing emails</h1>
+<h2>Your Emails</h2>
 
 <table>
   <tr>
-    <th>Read</th>
-    <th>Url</th>
     <th></th>
     <th></th>
     <th></th>
@@ -11,15 +9,11 @@
 
 <% @emails.each do |email| %>
   <tr>
-    <td><%= email.read %></td>
-    <td><%= email.url %></td>
-    <td><%= link_to 'Show', email %></td>
-    <td><%= link_to 'Edit', edit_email_path(email) %></td>
-    <td><%= link_to 'Destroy', email, confirm: 'Are you sure?', method: :delete %></td>
+    <td><% if email.read %><span class="badge badge-success"><i class="icon-ok"></i></span><% end %></td>
+    <td><%= email.body %></td>
+    <td><%= link_to 'Delete tracking?', email, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
 
 <%= link_to 'New Email', new_email_path %>

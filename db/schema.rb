@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130330155306) do
+ActiveRecord::Schema.define(:version => 20130330180443) do
 
   create_table "emails", :force => true do |t|
     t.boolean  "read",       :default => false
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20130330155306) do
     t.datetime "updated_at",                    :null => false
     t.integer  "user_id"
     t.text     "body"
+    t.string   "signature"
   end
 
   create_table "users", :force => true do |t|

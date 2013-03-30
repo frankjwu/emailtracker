@@ -1,26 +1,12 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <b>Read:</b>
-  <%= @email.read %>
-</p>
-
-<p>
-  <b>Url:</b>
-  <%= @email.url %>
-</p>
-
-	<%= @email.checkRead %>
-		<%= link_to "Add to email", @email.mailtolink %><br /><br /><br />
-
+Success!<br /><br />
+Copy text between lines directly into email.<br /><br />
 ----<br />
 <p id="some-txt">
 	<%= @email.body %><br />
-	<%= image_tag("urls/#{@email.url}.png") %><br /><br />
+	<%= image_tag(@email.view_signature) %><br /><br />
 </p>
 ----<br />
-
-<%= @email.getimageurl %>
 
 <%= link_to 'Edit', edit_email_path(@email) %> |
 <%= link_to 'Back', emails_path %>
