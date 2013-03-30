@@ -9,7 +9,7 @@
 
 <% @emails.each do |email| %>
   <tr>
-    <td><% if email.read %><span class="badge badge-success"><i class="icon-ok"></i></span><% end %></td>
+    <td><% if (email.read == true) %><span class="badge badge-success"><i class="icon-ok"></i></span><% end %></td>
     <td><%= email.body %></td>
     <td><%= link_to 'Delete tracking?', email, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
