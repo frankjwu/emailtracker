@@ -10,7 +10,12 @@
   <%= @email.url %>
 </p>
 
-	<%= image_tag("urls/#{@email.url}.png") %>
+	<%= @email.checkRead %>
+		<%= link_to "Add to email", @email.mailtolink %><br /><br /><br />
+
+	<%= @email.body %><br />
+	<%= image_tag("urls/#{@email.url}.png") %><br /><br />
+
 
 
 <%= link_to 'Edit', edit_email_path(@email) %> |

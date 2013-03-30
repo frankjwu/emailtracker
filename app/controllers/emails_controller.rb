@@ -3,7 +3,13 @@ class EmailsController < ApplicationController
   # GET /emails
   # GET /emails.json
   def index
-    @emails = Email.all
+    @emails = current_user.emails
+    @emails.each do |email|
+      if (email.checkRead == true)
+        email.read = true
+        email.save
+      end
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -26,18 +32,10 @@ class EmailsController < ApplicationController
   # GET /emails/new.json
   def new
     @email = Email.new
-    @email.read = false
-    @email.url = @email.gen_url
-    @email.copyimage
 
     respond_to do |format|
-      if @email.save
-        format.html { redirect_to @email, notice: 'Email was successfully created.' }
-        format.json { render json: @email, status: :created, location: @email }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @email.errors, status: :unprocessable_entity }
-      end
+      format.html # new.html.erb
+     format.json { render json: @email }
     end
   end
 
@@ -50,6 +48,10 @@ class EmailsController < ApplicationController
   # POST /emails.json
   def create
     @email = Email.new(params[:email])
+    @email.read = false
+    @email.url = @email.gen_url
+    @email.copyimage
+    @email.user_id = current_user.id
 
     respond_to do |format|
       if @email.save
