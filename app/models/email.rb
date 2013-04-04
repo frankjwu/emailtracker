@@ -66,6 +66,7 @@ class Email < ActiveRecord::Base
     agent.user_agent_alias = 'Mac Safari'
     page = agent.get "http://crypto-book.com/emailer/timeaccessed.php?filename=" + self.url.sub("http://crypto-book.com/emailer/", "")
     text = page.title
+    text = text.sub(".", "")
     return text
   end
 end
