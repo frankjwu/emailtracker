@@ -11,6 +11,11 @@
 <div class="container">
   <div class="span8">
     <div class="hero-unit">
+      <div class="pull-right">
+        <% if user_signed_in? %>
+        <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+        <% end %>
+      </div>
       <%= yield %>
     </div>
   </div>
