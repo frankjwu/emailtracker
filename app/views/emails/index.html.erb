@@ -1,19 +1,14 @@
 <h2>Your Emails</h2>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
 <% @emails.each do |email| %>
-  <tr>
-    <td><% if (email.read == true) %><span class="badge badge-success"><i class="icon-ok"></i></span><% end %></td>
-    <td><%= email.body %></td>
-    <td><%= link_to 'Delete tracking?', email, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+  <div class="row">
+    <div class="span2">
+      <% if (email.read == true) %><span class="badge badge-success"><i class="icon-ok"></i> <%= email.get_read_time %></span>
+      <% else %><span class="badge badge-important"><i class="icon-remove"></i> Unread<% end %></div>
+    <div class="span3"><%= email.body %></div>
+    <div class="span2"><%= link_to 'Delete tracking?', email, confirm: 'Are you sure?', method: :delete %></div>
+  </div>
 <% end %>
-</table>
+</br >
 
-<%= link_to 'New Email', new_email_path %>
+<%= link_to 'New Email', new_email_path, :class => "btn btn-inverse" %>

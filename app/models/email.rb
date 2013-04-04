@@ -61,4 +61,11 @@ class Email < ActiveRecord::Base
     end
   end
 
+  def get_read_time
+    agent = Mechanize.new
+    agent.user_agent_alias = 'Mac Safari'
+    page = agent.get "http://crypto-book.com/emailer/timeaccessed.php?filename=" + self.url.sub("http://crypto-book.com/emailer/", "")
+    text = page.title
+    return text
+  end
 end
