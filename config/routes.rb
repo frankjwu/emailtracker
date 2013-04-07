@@ -1,11 +1,13 @@
 Emailtracker::Application.routes.draw do
+  match '/about', to: 'static_pages#about'
+
   devise_for :users
 
   devise_for :emails
 
   resources :emails
 
-  root :to => "emails#index"
+  root :to => 'static_pages#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
